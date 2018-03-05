@@ -7,9 +7,9 @@ export const routes: Routes = [
     path: 'home',
     loadChildren: './shop/shop.module#ShopModule',
   },
-  // {
-  //   path: 'admin',
-  //   loadChildren: './admin/admin.module#AdminModule',
-  // },
+  {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+  },
   { path: '**', component: NotFoundPageComponent },
 ];
