@@ -20,6 +20,7 @@ import { environment } from '../environments/environment';
 import {routes} from './routes';
 import {AppComponent} from './core/containers/app';
 import {CoreModule} from './core/core.module';
+import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   imports: [
@@ -36,15 +37,15 @@ import {CoreModule} from './core/core.module';
     }),
 
     StoreDevtoolsModule.instrument({
-      name: 'NgRx Book Store DevTools',
+      name: 'Store DevTools',
       logOnly: environment.production,
     }),
 
     EffectsModule.forRoot([]),
     CoreModule.forRoot(),
+    AuthModule.forRoot(),
   ],
   providers: [
-
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
   ],
   bootstrap: [AppComponent],
