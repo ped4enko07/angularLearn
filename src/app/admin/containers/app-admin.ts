@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { PipeDecorator } from '../../core/decorators';
-import { AdminSelectService } from '../store/services';
-import { Store } from '@ngrx/store';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {PipeDecorator} from '../../core/decorators';
+import {AdminSelectService} from '../store/services';
+import {Store} from '@ngrx/store';
 
 import * as fromAdmin from '../store/reducers/index';
 import * as Layout from '../store/actions/admin-layout.actions';
@@ -15,8 +15,14 @@ import {AuthSelectService} from '../../auth/store/services/auth-select.service';
   template: `
     <app-layout>
       <app-sidenav [open]='showSidenav$ | async'>
+
         <app-nav-item (navigate)="logout()" *ngIf="loggedIn$ | async">
           Sign Out
+        </app-nav-item>
+
+        <!--<app-nav-item (navigate)="closeSidenav()" [routerLink]="'/admin/pages'" *ngIf="loggedIn$ | async">-->
+        <app-nav-item (navigate)="closeSidenav()" [routerLink]="'/admin/pages'">
+          Main Pages
         </app-nav-item>
       </app-sidenav>
 
@@ -34,11 +40,9 @@ export class AppAdminComponent {
   public showSidenav$: Observable<boolean>;
   public loggedIn$: Observable<boolean>;
 
-  constructor(
-    private adminSelectService: AdminSelectService,
-    private authSelectService: AuthSelectService,
-    private store: Store<fromAdmin.State>,
-  ) {
+  constructor(private adminSelectService: AdminSelectService,
+              private authSelectService: AuthSelectService,
+              private store: Store<fromAdmin.State>) {
     this.showSidenav$ = this.getPipe(this.adminSelectService.layoutShowSidenav$);
     this.loggedIn$ = this.getPipe(this.authSelectService.loggedIn$);
   }
